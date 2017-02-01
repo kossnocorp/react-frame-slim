@@ -135,7 +135,7 @@ describe('The Frame Component', () => {
     div = document.body.appendChild(document.createElement('div'));
 
     const initialContent = '<!DOCTYPE html><html><head><script>console.log("foo");</script></head><body><div></div></body></html>';
-    const renderedContent = '<html><head><script>console.log("foo");</script></head><body><div><div data-reactroot="" class="frame-content"></div></div></body></html>';
+    const renderedContent = '<html><head><script>console.log("foo");</script></head><body><div><!-- react-empty: 1 --></div></body></html>';
     const frame = ReactDOM.render(
       <Frame initialContent={initialContent} />
     , div);

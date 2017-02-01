@@ -92,9 +92,7 @@ export default class Frame extends Component {
       const initialRender = !this._setInitialContent;
       const contents = (
         <DocumentContext document={doc} window={win}>
-          <div className="frame-content">
-            {this.props.children}
-          </div>
+          {this.props.children}
         </DocumentContext>
       );
 

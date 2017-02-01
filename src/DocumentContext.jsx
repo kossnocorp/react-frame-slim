@@ -4,7 +4,7 @@ export default class DocumentContext extends Component {
   static propTypes = {
     document: PropTypes.object.isRequired,
     window: PropTypes.object.isRequired,
-    children: PropTypes.element.isRequired
+    children: PropTypes.element
   };
 
   static childContextTypes = {
@@ -20,6 +20,6 @@ export default class DocumentContext extends Component {
   }
 
   render() {
-    return Children.only(this.props.children);
+    return this.props.children || null
   }
 }
