@@ -28,7 +28,6 @@ export default class Frame extends Component {
   // element that we render react into.
   static propTypes = {
     style: PropTypes.object, // eslint-disable-line
-    head: PropTypes.node,
     initialContent: PropTypes.string,
     mountTarget: PropTypes.string,
     contentDidMount: PropTypes.func,
@@ -41,7 +40,6 @@ export default class Frame extends Component {
 
   static defaultProps = {
     style: {},
-    head: null,
     children: undefined,
     mountTarget: undefined,
     contentDidMount: () => {},
@@ -95,7 +93,6 @@ export default class Frame extends Component {
       const contents = (
         <DocumentContext document={doc} window={win}>
           <div className="frame-content">
-            {this.props.head}
             {this.props.children}
           </div>
         </DocumentContext>
@@ -127,7 +124,6 @@ export default class Frame extends Component {
       ...this.props,
       children: undefined // The iframe isn't ready so we drop children from props here. #12, #17
     };
-    delete props.head;
     delete props.initialContent;
     delete props.mountTarget;
     delete props.contentDidMount;

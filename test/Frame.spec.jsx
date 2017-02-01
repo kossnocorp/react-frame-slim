@@ -57,69 +57,6 @@ describe('The Frame Component', () => {
     expect(node.getAttribute('width')).to.equal('80%');
   });
 
-  it('should create an iFrame with a <link> tag inside', () => {
-    div = document.body.appendChild(document.createElement('div'));
-    const frame = ReactDOM.render(
-      <Frame head={<link href="styles.css" />} />,
-      div,
-    );
-    const body = ReactDOM.findDOMNode(frame).contentDocument.body;
-
-    expect(body.querySelector('link')).to.be.defined;
-    expect(body.querySelector('link').href).to.contain('styles.css');
-  });
-
-  it('should create an iFrame with a <script> and insert children', () => {
-    div = document.body.appendChild(document.createElement('div'));
-    const frame = ReactDOM.render(
-      <Frame head={<script src="foo.js" />}>
-        <h1>Hello</h1>
-        <h2>World</h2>
-      </Frame>,
-      div
-    );
-    const body = ReactDOM.findDOMNode(frame).contentDocument.body;
-
-    expect(body.querySelector('script')).to.be.defined;
-    expect(body.querySelector('script').src).to.contain('foo.js');
-    expect(frame.props.children).to.be.defined;
-    expect(body.querySelectorAll('h1,h2').length).to.equal(2);
-  });
-
-  it('should create an iFrame with multiple <link> and <script> tags inside', () => {
-    div = document.body.appendChild(document.createElement('div'));
-    const frame = ReactDOM.render(
-      <Frame
-        head={[
-          <link key="styles" href="styles.css" />,
-          <link key="foo" href="foo.css" />,
-          <script key="bar" src="bar.js" />
-        ]}
-      />, div);
-    const body = ReactDOM.findDOMNode(frame).contentDocument.body;
-
-    expect(body.querySelectorAll('link').length).to.equal(2);
-    expect(body.querySelectorAll('script').length).to.equal(1);
-  });
-
-  it('should encapsulate styles and not effect elements outside', () => {
-    div = document.body.appendChild(document.createElement('div'));
-    const component = ReactDOM.render(
-      <div>
-        <p>Some text</p>
-        <Frame head={<style>{'*{color:red}'}</style>}>
-          <p>Some text</p>
-        </Frame>
-      </div>,
-      div,
-    );
-    const elem = ReactDOM.findDOMNode(component);
-    const body = elem.querySelector('iframe').contentDocument.body;
-    const getColour = e => window.getComputedStyle(e, null).getPropertyValue('color');
-    expect(getColour(elem.querySelector('p'))).to.equal('rgb(0, 0, 0)');
-    expect(getColour(body.querySelector('p'))).to.equal('rgb(255, 0, 0)');
-  });
-
   it('should re-render inside the iframe correctly', () => {
     div = document.body.appendChild(document.createElement('div'));
     const component1 = ReactDOM.render(
