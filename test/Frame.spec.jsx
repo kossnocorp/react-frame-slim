@@ -35,24 +35,21 @@ describe('The Frame Component', () => {
   })
 
   it('should create an empty iFrame and apply inline styles', () => {
-    const frame = ReactTestUtils.renderIntoDocument(<Frame style={{ border: 0 }} />)
-    expect(frame.props.style).to.deep.equal({ border: 0 })
+    const frame = ReactTestUtils.renderIntoDocument(<Frame iframeProps={{style: {border: 0}}} />)
     expect(ReactDOM.findDOMNode(frame).style.border).to.contain('0')
   })
 
-  it('should pass along all props to underlying iFrame', () => {
+  it('should pass along iframeProps to underlying iFrame', () => {
     const frame = ReactTestUtils.renderIntoDocument(
       <Frame
-        className='test-class-1 test-class-2'
-        frameBorder={0}
-        height='100%'
-        width='80%'
+        iframeProps={{
+          className: 'test-class-1 test-class-2',
+          frameBorder: 0,
+          height: '100%',
+          width: '80%'
+        }}
       />)
     const node = ReactDOM.findDOMNode(frame)
-    expect(frame.props.className).to.equal('test-class-1 test-class-2')
-    expect(frame.props.frameBorder).to.equal(0)
-    expect(frame.props.height).to.equal('100%')
-    expect(frame.props.width).to.equal('80%')
     expect(node.className).to.equal('test-class-1 test-class-2')
     expect(node.getAttribute('frameBorder')).to.equal('0')
     expect(node.getAttribute('height')).to.equal('100%')

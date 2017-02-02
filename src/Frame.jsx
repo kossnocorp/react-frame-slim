@@ -8,7 +8,7 @@ export default class Frame extends Component {
   // initialContent is expected to have a div inside of the body
   // element that we render react into.
   static propTypes = {
-    style: PropTypes.object, // eslint-disable-line
+    iframeProps: PropTypes.object,
     initialContent: PropTypes.string,
     mountTarget: PropTypes.string,
     contentDidMount: PropTypes.func,
@@ -20,9 +20,6 @@ export default class Frame extends Component {
   };
 
   static defaultProps = {
-    style: {},
-    children: undefined,
-    mountTarget: undefined,
     contentDidMount: () => {},
     contentDidUpdate: () => {},
     initialContent: '<!DOCTYPE html><html><head></head><body><div></div></body></html>'
@@ -63,6 +60,7 @@ export default class Frame extends Component {
   }
 
   renderFrameContents () {
+    // TODO: Write test for it
     if (!this._isMounted) {
       return
     }
@@ -96,14 +94,6 @@ export default class Frame extends Component {
   }
 
   render () {
-    const props = {
-      ...this.props,
-      children: undefined // The iframe isn't ready so we drop children from props here. #12, #17
-    }
-    delete props.initialContent
-    delete props.mountTarget
-    delete props.contentDidMount
-    delete props.contentDidUpdate
-    return (<iframe {...props} />)
+    return <iframe {...this.props.iframeProps || {}} />
   }
 }
