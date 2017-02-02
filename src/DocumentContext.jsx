@@ -1,4 +1,4 @@
-import React, { Component, Children, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import {Component, PropTypes} from 'react'
 
 export default class DocumentContext extends Component {
   static propTypes = {
@@ -12,14 +12,14 @@ export default class DocumentContext extends Component {
     window: PropTypes.object.isRequired
   };
 
-  getChildContext() {
+  getChildContext () {
     return {
       document: this.props.document,
       window: this.props.window
-    };
+    }
   }
 
-  render() {
+  render () {
     return this.props.children || null
   }
 }
