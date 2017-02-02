@@ -18,18 +18,17 @@ module.exports = function configure(config) {
   config.set({
     basePath: '',
     files: [
-      { pattern: 'test/**/*.spec.js*', watched: true }
+      { pattern: 'test.js', watched: true }
     ],
     preprocessors: {
-      'test/**/*.spec.js*': ['webpack', 'sourcemap']
+      'test.js': ['webpack', 'sourcemap']
     },
     webpack,
     frameworks: ['mocha'],
-    reporters: ['progress', 'osx'],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: false,
-    browsers: ['PhantomJS2']
+    reporters: ['mocha'],
+    mochaReporter: {
+      output: process.env.CI ? 'minimal' : 'autowatch'
+    },
+    browsers: ['PhantomJS']
   });
 };
