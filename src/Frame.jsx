@@ -25,7 +25,7 @@ export default class Frame extends Component {
     mountTarget: undefined,
     contentDidMount: () => {},
     contentDidUpdate: () => {},
-    initialContent: '<!DOCTYPE html><html><head></head><body><div class="frame-root"></div></body></html>'
+    initialContent: '<!DOCTYPE html><html><head></head><body><div></div></body></html>'
   };
 
   constructor (props, context) {

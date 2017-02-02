@@ -133,6 +133,15 @@ describe('The Frame Component', () => {
     expect(frame.contentDocument.body.querySelector('.childDiv').innerHTML).to.equal('purple')
   })
 
+  it('should have default initial content', () => {
+    div = document.body.appendChild(document.createElement('div'))
+
+    const renderedContent = '<html><head></head><body><div><!-- react-empty: 1 --></div></body></html>'
+    const frame = ReactDOM.render(<Frame />, div)
+    const doc = ReactDOM.findDOMNode(frame).contentDocument
+    expect(doc.documentElement.outerHTML).to.equal(renderedContent)
+  })
+
   it('should allow setting initialContent', () => {
     div = document.body.appendChild(document.createElement('div'))
 
