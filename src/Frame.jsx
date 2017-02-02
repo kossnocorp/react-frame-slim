@@ -67,7 +67,7 @@ export default class Frame extends Component {
 
     const doc = this.getDoc()
     if (doc && doc.readyState === 'complete') {
-      const win = doc.defaultView || doc.parentView
+      const win = doc.defaultView || doc.parentView // TODO: Write tests for it (|| cond)
       const initialRender = !this._setInitialContent
       const contents = (
         <DocumentContext document={doc} window={win}>
