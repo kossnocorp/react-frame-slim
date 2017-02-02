@@ -2,25 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import DocumentContext from './DocumentContext'
 
-const hasConsole = typeof window !== 'undefined' && window.console
-const noop = () => {}
-let swallowInvalidHeadWarning = noop
-let resetWarnings = noop
-
-if (hasConsole) {
-  const originalError = console.error // eslint-disable-line no-console
-  // Rendering a <head> into a body is technically invalid although it
-  // works. We swallow React's validateDOMNesting warning if that is the
-  // message to avoid confusion
-  swallowInvalidHeadWarning = () => {
-    console.error = (msg) => {  // eslint-disable-line no-console
-      if (/<head>/.test(msg)) return
-      originalError.call(console, msg)
-    }
-  }
-  resetWarnings = () => (console.error = originalError)  // eslint-disable-line no-console
-}
-
 export default class Frame extends Component {
   // React warns when you render directly into the body since browser extensions
   // also inject into the body and can mess up React. For this reason
@@ -103,15 +84,12 @@ export default class Frame extends Component {
         this._setInitialContent = true
       }
 
-      swallowInvalidHeadWarning()
-
       // unstable_renderSubtreeIntoContainer allows us to pass this component as
       // the parent, which exposes context to any child components.
       const callback = initialRender ? this.props.contentDidMount : this.props.contentDidUpdate
       const mountTarget = this.getMountTarget()
 
       ReactDOM.unstable_renderSubtreeIntoContainer(this, contents, mountTarget, callback)
-      resetWarnings()
     } else {
       setTimeout(this.renderFrameContents, 0)
     }
