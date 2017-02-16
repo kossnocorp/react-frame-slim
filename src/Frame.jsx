@@ -48,7 +48,7 @@ export default class Frame extends Component {
   }
 
   getDoc () {
-    return ReactDOM.findDOMNode(this).contentDocument; // eslint-disable-line
+    return ReactDOM.findDOMNode(this).contentDocument
   }
 
   getMountTarget () {
