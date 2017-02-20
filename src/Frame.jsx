@@ -16,7 +16,8 @@ export default class Frame extends Component {
     children: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.arrayOf(PropTypes.element)
-    ])
+    ]),
+    onReady: PropTypes.func
   };
 
   static defaultProps = {
@@ -88,6 +89,7 @@ export default class Frame extends Component {
       const mountTarget = this.getMountTarget()
 
       ReactDOM.unstable_renderSubtreeIntoContainer(this, contents, mountTarget, callback)
+      this.props.onReady && this.props.onReady()
     } else {
       setTimeout(this.renderFrameContents, 0)
     }
